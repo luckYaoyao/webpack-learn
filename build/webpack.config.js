@@ -1,8 +1,12 @@
 const path = require('path')
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const miniExtraCss = require('mini-extra-css')
+// 样式抽离
+
+console.log(process.env.NODE_ENV)
+
 
 module.exports = {
     // 资源入口相对的路径（绝对路径，默认为项目根目录）, context为src, entry为./packages/a.js, 路径为./src/package/a.js
@@ -27,16 +31,20 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
+            // {
+            //     test: /\.jpg|png$/,
+            //     // use: 'file-loader'
+            //     use: {
+            //         loader: 'url-loader',
+            //         options: {
+            //             limit: 1024 * 8,
+            //             name: '[name].[ext]',
+            //         }
+            //     },
+            // },
             {
                 test: /\.jpg|png$/,
-                // use: 'file-loader'
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 1024 * 8,
-                        name: '[name].[ext]',
-                    }
-                },
+                type: 'asset/resource'
             },
             {
                 test: /\.js$/,
@@ -68,15 +76,22 @@ module.exports = {
             minify: true,
             // 是否在HTML文件中展示详细错误信息
             showErrors: true
-        })
+        }),
+        // 环境变量
+        new webpack.DefinePlugin({
+            IS_OLD: true,
+            MY_ENV: JSON.stringify('dev'),
+            NAME: "'Jack'"
+        }),
     ],
     devServer: {
         host: 'localhost',
         port: 8089,
-        open: true,
+        open: false,
         hot: true,
         // 静态资源是否开启Gzip压缩
         compress: true,
         historyApiFallback: true
-    }
+    },
+    devtool: 'source-map'
 }

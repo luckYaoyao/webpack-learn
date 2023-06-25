@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./build/webpack.config.js",
-    "build:dev": "webpack --config ./build/webpack.config.js --watch"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config ./build/webpack.config.js --watch",
+    "build:prod": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --watch"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",

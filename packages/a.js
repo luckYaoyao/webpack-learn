@@ -8,6 +8,8 @@ console.log(add(3, 5))
 import img1 from './md-close@2x.png'
 import img2 from './comment_opts@2x.png'
 
+console.log(IS_OLD, MY_ENV, NAME)
+
 window.onload = function () {
     console.log('img1', img1)
     console.log('img2', img2)
