@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 样式抽离
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 console.log(process.env.NODE_ENV)
 
@@ -29,7 +30,13 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                // use: ['style-loader', 'css-loader']
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader'
+                ]
             },
             // {
             //     test: /\.jpg|png$/,
@@ -73,7 +80,7 @@ module.exports = {
             title: 'Hello',
             filename: 'index.html',
             // 模板是否压缩
-            minify: true,
+            minify: false,
             // 是否在HTML文件中展示详细错误信息
             showErrors: true
         }),
@@ -83,6 +90,10 @@ module.exports = {
             MY_ENV: JSON.stringify('dev'),
             NAME: "'Jack'"
         }),
+        new MiniCssExtractPlugin({
+            filename: '[name]-[contenthash:8].css',
+            chunkFilename: '[id].css'
+        })
     ],
     devServer: {
         host: 'localhost',
