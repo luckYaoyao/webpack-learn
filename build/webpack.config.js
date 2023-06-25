@@ -6,7 +6,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 样式抽离
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-console.log(process.env.NODE_ENV)
+const ENV = process.env.NODE_ENV
+
+let cssLoader = null
+if (ENV === 'production') {
+    cssLoader = [
+        {
+            loader: MiniCssExtractPlugin.loader,
+        },
+        'css-loader',
+        'postcss-loader',
+        'sass-loader'
+    ]
+}
+else if (ENV === 'development') {
+    cssLoader = [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+    ]
+}
 
 
 module.exports = {
@@ -31,14 +50,7 @@ module.exports = {
             {
                 test: /\.(scss|css)$/,
                 // use: ['style-loader', 'css-loader']
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                    },
-                    'css-loader',
-                    'postcss-loader',
-                    'sass-loader'
-                ]
+                use: cssLoader
             },
             // {
             //     test: /\.jpg|png$/,
