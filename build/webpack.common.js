@@ -93,5 +93,17 @@ module.exports = {
         compress: true,
         historyApiFallback: true
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+    // 性能提示
+    performance: {
+        // 入口资源最大体积
+        maxEntrypointSize: 512000,
+        // 打包资源最大体积
+        maxAssetSize: 1000,
+        // 如何提示信息：'warning' | 'error' | false
+        hints: 'warning',
+        assetFilter: function(assetFileName) {
+            return !/\.map$/.test(assetFileName)
+        }
+    }
 }
