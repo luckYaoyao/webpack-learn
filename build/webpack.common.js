@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 样式抽离
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// 性能监控
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const ENV = process.env.NODE_ENV
 
@@ -82,7 +84,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name]-[contenthash:8].css',
             chunkFilename: '[id].css'
-        })
+        }),
+        new BundleAnalyzerPlugin()
     ],
     devServer: {
         host: 'localhost',
