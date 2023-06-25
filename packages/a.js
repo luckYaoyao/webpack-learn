@@ -21,3 +21,4 @@ window.onload = function () {
 console.log('333445')
 
 import './b.css'
+import './c.scss'
