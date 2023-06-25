@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js",
-    "build:dev": "cross-env NODE_ENV=development webpack --config ./build/webpack.config.js --watch",
-    "build:prod": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --watch"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.development.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config ./build/webpack.development.js --watch",
+    "build:prod": "cross-env NODE_ENV=production webpack --config ./build/webpack.production.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.87.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.9.0"
   }
 }
