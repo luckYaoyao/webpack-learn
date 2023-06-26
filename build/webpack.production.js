@@ -1,8 +1,11 @@
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common.js')
+// 样式抽离
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// 压缩CSS
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-module.exports = merge(common, {
+const config = merge(common, {
     module: {
         rules: [
             {
@@ -17,5 +20,19 @@ module.exports = merge(common, {
                 ]
             }
         ]
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name]-[contenthash:8].css',
+            chunkFilename: '[id].css'
+        }),
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [new CssMinimizerPlugin()]
     }
 })
+
+console.log(config)
+
+module.exports = config

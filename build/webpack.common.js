@@ -3,13 +3,16 @@ const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// 样式抽离
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 性能监控
 // 打包体积分析工具
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // 打包速度分析工具
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin')
+
+// 资源压缩
+// JS压缩
+const TerserPlugin = require('terser-webpack-plugin')
+
 const ENV = process.env.NODE_ENV
 
 const smp = new SpeedMeasureWebpackPlugin()
@@ -85,11 +88,8 @@ const config = {
             MY_ENV: JSON.stringify('dev'),
             NAME: "'Jack'"
         }),
-        new MiniCssExtractPlugin({
-            filename: '[name]-[contenthash:8].css',
-            chunkFilename: '[id].css'
-        }),
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin(),
+        new TerserPlugin()
     ],
     devServer: {
         host: 'localhost',
