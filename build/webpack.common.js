@@ -32,7 +32,8 @@ const config = {
         chunkFilename: '[id]-[contenthash:8].js'
     },
     resolve: {
-        extensions: ['.css', '.js', '.jpg', '.png']
+        extensions: ['.ts', '.tsx', '.js'],
+        modules: [path.resolve(__dirname, 'node_modules')]
     },
     module: {
         rules: [
@@ -58,8 +59,9 @@ const config = {
                     options: {
                         presets: ['@babel/preset-env'],
                         cacheDirectory: true
-                    }
-                }
+                    },
+                },
+                exclude: /node_modules/
             }
         ]
     },
