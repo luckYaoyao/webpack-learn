@@ -6,11 +6,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 样式抽离
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 性能监控
+// 打包体积分析工具
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
+// 打包速度分析工具
+const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin')
 const ENV = process.env.NODE_ENV
 
-module.exports = {
+const smp = new SpeedMeasureWebpackPlugin()
+
+const config = {
     // 资源入口相对的路径（绝对路径，默认为项目根目录）, context为src, entry为./packages/a.js, 路径为./src/package/a.js
     // context: path.resolve(__dirname, '../src'),
     mode: 'none',
@@ -110,3 +114,5 @@ module.exports = {
         }
     }
 }
+
+module.exports = smp.wrap(config)
